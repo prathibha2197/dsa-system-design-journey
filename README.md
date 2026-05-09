@@ -8,15 +8,19 @@ Java CLI application to solve the Two Sum problem using HashMap (O(n)) approach.
 - CLI input using Scanner
 
 ## Sample Input
-2 7 11 15
-9
+Array: 2 7 11 15  
+Target: 9
 
 ## Output
-Indices: [0, 1]
+[0, 1]
 
 ## Complexity
 Time: O(n)  
 Space: O(n)
+
+## Concept Used
+- HashMap (number → index)
+- Complement technique (target - current number)
 
 ## How to Run
 javac Main.java  
