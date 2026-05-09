@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Pro Calculator</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --calc-bg: #ffffff;
+            --text-color: #1c1e21;
+            --btn-bg: #e4e6eb;
+            --btn-hover: #d8dadf;
+            --op-color: #ff9500;
+            --display-bg: #f5f6f7;
+            --accent-blue: #007bff;
+            --shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #18191a;
+            --calc-bg: #242526;
+            --text-color: #e4e6eb;
+            --btn-bg: #3a3b3c;
+            --btn-hover: #4e4f50;
+            --display-bg: #1c1e21;
+            --shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            transition: background 0.3s ease;
+        }
+
+        .app-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background-color: var(--calc-bg);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            width: 340px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        #display {
+            width: 100%;
+            height: 80px;
+            font-size: 2.2rem;
+            text-align: right;
+            border: none;
+            background: var(--display-bg);
+            color: var(--text-color);
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Grid Layouts */
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .sci-grid { grid-template-columns: repeat(3, 1fr); margin-bottom: 10px; }
+
+        button {
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 14px;
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+
+        button:hover { background-color: var(--btn-hover); transform: translateY(-2px); }
+        button:active { transform: translateY(1px); filter: brightness(0.9); }
+
+        .btn-op { color: var(--op-color); font-size: 1.4rem; }
+        .btn-sci { color: var(--accent-blue); font-size: 0.9rem; background: rgba(0, 123, 255, 0.05); }
+        .btn-eq { background-color: var(--op-color); color: white; grid-column: span 2; }
+        .btn-ac { color: #ff3b30; }
+
+        /* History Panel */
+        .history-panel {
+            background-color: var(--calc-bg);
+            width: 260px;
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            max-height: 520px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-list {
+            list-style: none;
+            padding: 0;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .history-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--btn-bg);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .history-item:hover { background: var(--display-bg); border-radius: 8px; }
+
+        /* Custom Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 44px; height: 22px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { 
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; 
+            background-color: #ccc; transition: .4s; border-radius: 34px; 
+        }
+        .slider:before { 
+            position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; 
+            background-color: white; transition: .4s; border-radius: 50%; 
+        }
+        input:checked + .slider { background-color: var(--accent-blue); }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 150px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            bottom: 30px;
+            font-size: 0.8rem;
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body>
+
+<div id="toast">Copied to Clipboard!</div>
+
+<div class="app-container">
+    <div class="calculator">
+        <div class="header">
+            <span>PRO CALCULATOR</span>
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <input type="text" id="display" readonly placeholder="0" onclick="copyToClipboard()">
+
+        <div class="grid sci-grid">
+            <button class="btn-sci" onclick="sci('sin')">sin</button>
+            <button class="btn-sci" onclick="sci('cos')">cos</button>
+            <button class="btn-sci" onclick="sci('sqrt')">√</button>
+            <button class="btn-sci" onclick="sci('log')">log</button>
+            <button class="btn-sci" onclick="append('**')">xʸ</button>
+            <button class="btn-sci" onclick="append('Math.PI')">π</button>
+        </div>
+
+        <div class="grid">
+            <button class="btn-ac" onclick="clr()">AC</button>
+            <button onclick="del()">DEL</button>
+            <button class="btn-op" onclick="append('/')">÷</button>
+            <button class="btn-op" onclick="append('*')">×</button>
+
+            <button onclick="append('7')">7</button>
+            <button onclick="append('8')">8</button>
+            <button onclick="append('9')">9</button>
+            <button class="btn-op" onclick="append('-')">−</button>
+
+            <button onclick="append('4')">4</button>
+            <button onclick="append('5')">5</button>
+            <button onclick="append('6')">6</button>
+            <button class="btn-op" onclick="append('+')">+</button>
+
+            <button onclick="append('1')">1</button>
+            <button onclick="append('2')">2</button>
+            <button onclick="append('3')">3</button>
+            <button onclick="append('.')">.</button>
+
+            <button onclick="append('0')">0</button>
+            <button class="btn-eq" onclick="solve()">=</button>
+        </div>
+    </div>
+
+    <div class="history-panel">
+        <h3 style="margin: 0 0 15px 0; font-size: 1.1rem;">History</h3>
+        <ul class="history-list" id="history-list"></ul>
+        <button style="width:100%; font-size: 0.8rem; padding:12px; margin-top:10px;" onclick="clearHist()">Clear All</button>
+    </div>
+</div>
+
+<script>
+    const disp = document.getElementById('display');
+    const histList = document.getElementById('history-list');
+    let history = JSON.parse(localStorage.getItem('calc_history')) || [];
+
+    // Core Actions
+    function append(val) { 
+        if (disp.value === "Error") clr();
+        disp.value += val; 
+    }
+    function clr() { disp.value = ""; }
+    function del() { disp.value = disp.value.slice(0, -1); }
+
+    function solve() {
+        try {
+            const expr = disp.value;
+            if (!expr) return;
+            // Clean expression for display
+            let cleanExpr = expr.replace(/\*\*/g, '^').replace(/Math.PI/g, 'π');
+            
+            const res = eval(expr);
+            const formattedRes = Number.isInteger(res) ? res : parseFloat(res.toFixed(8));
+            
+            history.unshift({ expr: cleanExpr, res: formattedRes });
+            if (history.length > 10) history.pop();
+            saveAndRender();
+            
+            disp.value = formattedRes;
+        } catch (e) {
+            disp.value = "Error";
+            setTimeout(clr, 1500);
+        }
+    }
+
+    function sci(fn) {
+        const val = parseFloat(disp.value);
+        if (isNaN(val)) return;
+        let res;
+        if (fn === 'sin') res = Math.sin(val * Math.PI / 180);
+        if (fn === 'cos') res = Math.cos(val * Math.PI / 180);
+        if (fn === 'log') res = Math.log10(val);
+        if (fn === 'sqrt') res = Math.sqrt(val);
+        
+        const finalRes = parseFloat(res.toFixed(4));
+        history.unshift({ expr: `${fn}(${val})`, res: finalRes });
+        saveAndRender();
+        disp.value = finalRes;
+    }
+
+    // Utility
+    function saveAndRender() {
+        localStorage.setItem('calc_history', JSON.stringify(history));
+        histList.innerHTML = history.map((item) => 
+            `<li class="history-item" onclick="disp.value='${item.res}'">
+                <div style="color:#888; font-size: 0.75rem;">${item.expr}</div>
+                <div style="font-weight:bold;">= ${item.res}</div>
+            </li>`
+        ).join('');
+    }
+
+    function clearHist() {
+        history = [];
+        saveAndRender();
+    }
+
+    function copyToClipboard() {
+        if (!disp.value || disp.value === "Error") return;
+        navigator.clipboard.writeText(disp.value);
+        const toast = document.getElementById("toast");
+        toast.className = "show";
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    // Theme Logic
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('change', (e) => {
+        const theme = e.target.checked ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    });
+
+    // Keyboards
+    window.addEventListener('keydown', (e) => {
+        if (/[0-9]/.test(e.key)) append(e.key);
+        if (['+', '-', '*', '/'].includes(e.key)) append(e.key);
+        if (e.key === '.') append('.');
+        if (e.key === 'Enter') { e.preventDefault(); solve(); }
+        if (e.key === 'Backspace') del();
+        if (e.key === 'Escape') clr();
+    });
+
+    // Startup
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    toggle.checked = savedTheme === 'dark';
+    saveAndRender();
+</script>
+
+</body>
+</html>
