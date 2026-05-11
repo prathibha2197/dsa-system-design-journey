@@ -1,6 +1,6 @@
 \-- SQL Practice (LeetCode 50)
 
-
+&#x20;
 
 \-- Q1: Recyclable and Low Fat Products
 
