@@ -1,52 +1,32 @@
+# 🚀 DSA + System Design + SQL Journey
 
-# Two Sum CLI Solver
+## 👨‍💻 About
+This repo contains my structured learning journey in:
+- Data Structures & Algorithms (Java)
+- System Design basics
+- SQL practice
 
-Java CLI application to solve the Two Sum problem using HashMap (O(n)) approach.
+Goal: Become strong in backend development + problem solving for high-paying software roles.
 
-## Features
-- O(n) HashMap solution
-- Handles duplicate values
-- CLI input using Scanner
+---
 
-## Sample Input
-2 7 11 15
-9
+## 📌 DSA
+- Two Sum (HashMap - O(n))
+- Valid Parentheses (Stack - O(n))
 
-## Output
-Indices: [0, 1]
+---
 
-## Complexity
-Time: O(n)  
-Space: O(n)
+## 🏗 System Design
+- Database Indexing
+- B-Tree vs Hash Index
+- Trade-offs in systems
 
-## How to Run
-javac Main.java  
-java Main
+---
 
-# Two Sum CLI Solver
+## 🧠 Projects
+- Two Sum CLI Solver (Java)
 
-Java CLI application to solve the Two Sum problem using HashMap (O(n)) approach.
+---
 
-## Features
-- O(n) HashMap solution
-- Handles duplicate values
-- CLI input using Scanner
-
-## Sample Input
-Array: 2 7 11 15  
-Target: 9
-
-## Output
-[0, 1]
-
-## Complexity
-Time: O(n)  
-Space: O(n)
-
-## Concept Used
-- HashMap (number → index)
-- Complement technique (target - current number)
-
-## How to Run
-javac Main.java  
-java Main
+## 🔥 Goal
+Daily consistency → 1–3 commits/day 
