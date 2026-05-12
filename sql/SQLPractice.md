@@ -1,70 +1,89 @@
-\-- SQL Practice (LeetCode 50)
+# SQL Practice (LeetCode 50) - Beginner Friendly Clean Version
 
-&#x20;
+----------------------------------------------------
+-- DAY 1
+----------------------------------------------------
 
-\-- Q1: Recyclable and Low Fat Products
-
-SELECT product\_id
-
+-- Q1: Recyclable and Low Fat Products
+SELECT product_id
 FROM Products
+WHERE low_fats = 'Y' AND recyclable = 'Y';
 
-WHERE low\_fats = 'Y' AND recyclable = 'Y';
-
-
-
-\-- Q2: Find Customer Who Never Orders
-
-SELECT name AS Customers
-
-FROM Customers
-
-WHERE id NOT IN (
-
-&#x20;   SELECT customerId FROM Orders
-
-);
-
-
-
-\-- Q3: Combine Two Tables
-
-SELECT firstName, lastName, city, state
-
-FROM Person p
-
-LEFT JOIN Address a
-
-ON p.personId = a.personId;
-
-
-
-\-- Q4: Find Customer Referee
-
+-- Q2: Find Customer Referee
 SELECT name
-
 FROM Customer
+WHERE referee_id != 2 OR referee_id IS NULL;
 
-WHERE referee\_id != 2 OR referee\_id IS NULL;
-
-
-
-\-- Q5: Big Countries
-
+-- Q3: Big Countries
 SELECT name, population, area
-
 FROM World
-
 WHERE area >= 3000000 OR population >= 25000000;
 
 
+----------------------------------------------------
+-- DAY 2
+----------------------------------------------------
 
-\-- Q6: Article Views I
-
-SELECT DISTINCT author\_id AS id
-
+-- Q4: Article Views I
+SELECT DISTINCT author_id AS id
 FROM Views
+WHERE author_id = viewer_id;
 
-WHERE author\_id = viewer\_id
+-- Q5: Invalid Tweets
+SELECT tweet_id
+FROM Tweets
+WHERE LENGTH(content) > 15;
 
-ORDER BY id;
+-- Q6: Employee Unique ID
+SELECT unique_id, name
+FROM Employees e
+LEFT JOIN EmployeeUNI u
+ON e.id = u.id;
 
+
+----------------------------------------------------
+-- DAY 3
+----------------------------------------------------
+
+-- Q7: Product Sales Analysis I
+SELECT p.product_name, s.year, s.price
+FROM Sales s
+LEFT JOIN Product p
+ON s.product_id = p.product_id;
+
+-- Q8: Bank Account Summary II
+SELECT u.name, SUM(t.amount) AS balance
+FROM Users u
+JOIN Transactions t
+ON u.account_id = t.account_id
+GROUP BY u.account_id;
+
+-- Q9: Contest Participation %
+SELECT contest_id,
+ROUND(COUNT(user_id) * 100.0 / (SELECT COUNT(*) FROM Users), 2) AS percentage
+FROM Register
+GROUP BY contest_id;
+
+
+----------------------------------------------------
+-- DAY 4
+----------------------------------------------------
+
+-- Q10: Queries Quality
+SELECT query_name,
+ROUND(AVG(rating / position), 2) AS quality
+FROM Queries
+WHERE query_name IS NOT NULL
+GROUP BY query_name;
+
+-- Q11: Monthly Transactions
+SELECT DATE_FORMAT(trans_date, '%Y-%m') AS month,
+country,
+COUNT(*) AS trans_count,
+SUM(amount) AS total_amount
+FROM Transactions
+GROUP BY DATE_FORMAT(trans_date, '%Y-%m'), country;
+
+-- Q12: Immediate Delivery %
+SELECT ROUND(AVG(order_date = customer_pref_delivery_date) * 100, 2) AS immediate_percentage
+FROM Delivery;
