@@ -28,19 +28,23 @@
 
 3. Hash Index: = operator ki matrame. O(1) but range queries radu
 
-4. Trade-off: Read fast, Write slow. Extra storage padutundi
+4. Trade-off:
+   Read fast, Write slow. Extra storage padutundi
 
-5. When: WHERE, JOIN, ORDER BY lo use chese columns ki pettu
+5. When:
+   WHERE, JOIN, ORDER BY lo use chese columns ki pettu
 
 ---
 
 ## Day 3: May 11, 2026 - Caching
 
-1. Problem: Database ki every request hit chesthe slow avthundi. High traffic lo DB crash avvachu.
+1. Problem:
+   Database ki every request hit chesthe slow avthundi. High traffic lo DB crash avvachu.
 
-2. Solution: Cache = Frequently used data ni RAM lo store cheyyadam for fast access.
+2. Solution:
+   Cache = Frequently used data ni RAM lo store cheyyadam for fast access.
 
-3. Types of Caching:
+3. Types:
    - Client-side cache → Browser cache (images, CSS, JS)
    - CDN cache → Cloudflare, Akamai (static content near users)
    - Server-side cache → Redis, Memcached (API/DB results)
@@ -67,13 +71,15 @@
 
 ## Day 4: May 12, 2026 - Sharding vs Replication
 
-1. Problem: Single database cannot handle high traffic + large data.
+1. Problem:
+   Single database cannot handle high traffic + large data.
 
 ---
 
 ### Replication
 
-2. Definition: Same data multiple databases lo copy chestham.
+2. Definition:
+   Same data multiple databases lo copy chestham.
 
 3. Types:
    - Master-Slave → Write master ki, Read slaves nunchi
@@ -86,7 +92,8 @@
 
 ### Sharding
 
-5. Definition: Data ni split chesi multiple databases lo store cheyyadam.
+5. Definition:
+   Data ni split chesi multiple databases lo store cheyyadam.
 
 6. Types:
    - Horizontal → Rows split (User 1–1M, 1M–2M)
