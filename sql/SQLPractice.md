@@ -87,3 +87,34 @@ GROUP BY DATE_FORMAT(trans_date, '%Y-%m'), country;
 -- Q12: Immediate Delivery %
 SELECT ROUND(AVG(order_date = customer_pref_delivery_date) * 100, 2) AS immediate_percentage
 FROM Delivery;
+
+----------------------------------------------------
+-- DAY 5
+----------------------------------------------------
+
+-- Q13: 197 Rising Temperature
+SELECT w1.id
+FROM Weather w1
+JOIN Weather w2
+ON DATEDIFF(w1.recordDate, w2.recordDate) = 1
+WHERE w1.temperature > w2.temperature;
+
+-- Q14: 1661 Average Time per Machine
+SELECT machine_id,
+       ROUND(AVG(end_time - start_time), 3) AS processing_time
+FROM (
+    SELECT machine_id,
+           process_id,
+           MAX(CASE WHEN activity_type = 'end' THEN timestamp END) AS end_time,
+           MAX(CASE WHEN activity_type = 'start' THEN timestamp END) AS start_time
+    FROM Activity
+    GROUP BY machine_id, process_id
+) t
+GROUP BY machine_id;
+
+-- Q15: 577 Employee Bonus
+SELECT e.name, b.bonus
+FROM Employee e
+LEFT JOIN Bonus b
+ON e.empId = b.empId
+WHERE b.bonus < 1000 OR b.bonus IS NULL;
