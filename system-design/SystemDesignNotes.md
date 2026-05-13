@@ -74,7 +74,7 @@
 1. Problem:
    Single database cannot handle high traffic + large data.
 
----
+
 
 ### Replication
 
@@ -88,7 +88,7 @@
 4. Use Case:
    Read-heavy systems (Instagram, Facebook feed)
 
----
+
 
 ### Sharding
 
@@ -104,7 +104,7 @@
    - geo location
    - hash-based partition
 
----
+
 
 8. Trade-off:
 
@@ -116,9 +116,75 @@ Sharding:
 - Scales both read + write
 - Complex system
 
----
+
 
 9. Interview Question:
 Sharded DB lo JOIN ela chestam?
 → App-level join or denormalization
 → Cross-shard JOIN is expensive
+
+---
+
+## Day 5: CAP Theorem
+
+### CAP Theorem
+CAP = Consistency + Availability + Partition Tolerance
+
+In distributed systems, when network partition happens, we can only choose 2 out of 3.
+
+👉 Pick 2: C, A, P
+
+
+
+### Diagram
+
+        C
+       / \
+      /   \
+    CP     AP
+      \   /
+       \ /
+        P
+
+Meaning:
+During network failure, system must choose between:
+- CP (Consistency + Partition Tolerance)
+- AP (Availability + Partition Tolerance)
+
+
+
+### 5 Key Points
+
+1. Consistency:
+   Every read gets the latest write
+
+2. Availability:
+   Every request gets a response (no downtime)
+
+3. Partition Tolerance:
+   System works even if network breaks
+
+4. CA is not possible in distributed systems:
+   Because network failures are unavoidable
+
+5. Real-world choice:
+   - CP → Banking, payments (correct data first)
+   - AP → Social media, chat apps (always available)
+
+---
+
+### Examples
+
+CP Systems:
+- MongoDB (strict mode)
+- HBase
+- Banking systems
+- Trading systems
+
+AP Systems:
+- Cassandra
+- DynamoDB
+- Social media feeds
+- Shopping cart systems
+
+---
