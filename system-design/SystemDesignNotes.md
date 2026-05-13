@@ -171,8 +171,6 @@ During network failure, system must choose between:
    - CP → Banking, payments (correct data first)
    - AP → Social media, chat apps (always available)
 
----
-
 ### Examples
 
 CP Systems:
