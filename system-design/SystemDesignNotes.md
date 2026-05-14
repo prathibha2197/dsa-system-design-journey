@@ -1,4 +1,5 @@
 # System Design Journey
+---
 
 ## Day 1: May 09, 2026 - Load Balancer
 
@@ -186,3 +187,73 @@ AP Systems:
 - Shopping cart systems
 
 ---
+
+## Day 6: Message Queue 
+
+### Problem
+
+Order service directly calling Email service → if Email service is down, Order fails → **tight coupling**
+
+### Solution
+
+Message Queue acts as a **middleman**
+
+- Order service sends message
+- Email service consumes when available
+
+### Pub/Sub vs Queue
+
+#### Queue (1 → 1)
+
+One message → one consumer
+
+Examples:
+- Image processing
+- Background jobs
+
+#### Pub/Sub (1 → many)
+
+One message → multiple consumers
+
+Examples:
+- Order placed → Email + SMS + Inventory
+
+### Kafka vs RabbitMQ
+
+#### Kafka
+- Distributed log system
+- High throughput
+- Replay messages possible
+
+Use cases:
+- Event streaming
+- Analytics
+- Uber location tracking
+
+#### RabbitMQ
+- Message broker
+- Flexible routing
+- Low latency
+
+Use cases:
+- Task queues
+- Background jobs
+
+### Why not direct API calls?
+
+- ❌ Tight coupling
+- ❌ No buffering
+- ❌ Retry failures
+- ❌ No backpressure handling
+
+### Real World Example (Flipkart)
+
+Order placed →
+→ order_created event goes to queue
+→ Email service consumes → sends email
+→ Inventory service updates stock
+→ Shipping service starts delivery
+
+### Key Idea
+
+Services should communicate via **events**, not direct calls.
