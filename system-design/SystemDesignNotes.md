@@ -106,7 +106,6 @@
    - hash-based partition
 
 
-
 8. Trade-off:
 
 Replication:
@@ -116,7 +115,6 @@ Replication:
 Sharding:
 - Scales both read + write
 - Complex system
-
 
 
 9. Interview Question:
