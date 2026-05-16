@@ -1,4 +1,4 @@
-# SQL Practice (LeetCode 50) 
+# SQL Practice  
 
 ----------------------------------------------------
 -- DAY 1
