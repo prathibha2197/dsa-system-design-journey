@@ -253,5 +253,4 @@ Order placed →
 → Shipping service starts delivery
 
 ### Key Idea
-
 Services should communicate via **events**, not direct calls.
