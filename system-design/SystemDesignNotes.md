@@ -1,7 +1,7 @@
-# System Design Journey
+# System Design 
 ---
 
-## Day 1: May 09, 2026 - Load Balancer
+##  Load Balancer
 
 1. Problem: If 1M users access a single server, it may crash.
 
@@ -21,7 +21,7 @@
 
 ---
 
-## Day 2: Database Indexing
+##  Database Indexing
 
 1. Index: Book lo index laaga, data fast ga find cheyadaniki
 
@@ -37,7 +37,7 @@
 
 ---
 
-## Day 3: May 11, 2026 - Caching
+## Caching
 
 1. Problem:
    Database ki every request hit chesthe slow avthundi. High traffic lo DB crash avvachu.
@@ -70,7 +70,7 @@
 
 ---
 
-## Day 4: May 12, 2026 - Sharding vs Replication
+## Sharding vs Replication
 
 1. Problem:
    Single database cannot handle high traffic + large data.
@@ -124,7 +124,7 @@ Sharded DB lo JOIN ela chestam?
 
 ---
 
-## Day 5: CAP Theorem
+## CAP Theorem
 
 ### CAP Theorem
 CAP = Consistency + Availability + Partition Tolerance
@@ -186,7 +186,7 @@ AP Systems:
 
 ---
 
-## Day 6: Message Queue 
+## Message Queue 
 
 ### Problem
 
