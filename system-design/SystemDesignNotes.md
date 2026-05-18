@@ -76,7 +76,6 @@
    Single database cannot handle high traffic + large data.
 
 
-
 ### Replication
 
 2. Definition:
