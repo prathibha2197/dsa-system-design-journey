@@ -87,7 +87,6 @@
 4. Use Case:
    Read-heavy systems (Instagram, Facebook feed)
 
-
 ### Sharding
 
 5. Definition:
