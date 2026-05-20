@@ -1,6 +1,5 @@
 # System Design Journey
 ---
-
 ## Day 1: May 09, 2026 - Load Balancer
 
 1. Problem: If 1M users access a single server, it may crash.
