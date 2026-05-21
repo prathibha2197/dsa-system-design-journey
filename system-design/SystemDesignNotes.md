@@ -3,7 +3,6 @@
 
 ##  Load Balancer
 
-
 1. Problem: If 1M users access a single server, it may crash.
 
 2. Solution: A Load Balancer distributes traffic across multiple servers.
