@@ -1,7 +1,7 @@
 # System Design 
 ---
 
-## Day 1: May 0 - Load Balancer
+## Day 1: - Load Balancer
 
 ##  Load Balancer
 
