@@ -1,8 +1,6 @@
 # System Design 
 ---
 
-## Day 1: - Load Balancer
-
 ##  Load Balancer
 
 
