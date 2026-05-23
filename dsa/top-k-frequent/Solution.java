@@ -3,7 +3,6 @@ import java.util.*;
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
 
-        // Step 1: Frequency Map
         HashMap<Integer, Integer> map = new HashMap<>();
 
         for (int num : nums) {
