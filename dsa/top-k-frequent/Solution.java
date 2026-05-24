@@ -9,7 +9,6 @@ class Solution {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
-        // Step 2: Bucket Array
         List<Integer>[] bucket = new List[nums.length + 1];
 
         for (int key : map.keySet()) {
