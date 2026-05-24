@@ -22,7 +22,6 @@ class Solution {
             bucket[freq].add(key);
         }
 
-        // Step 3: Collect Top K
         int[] result = new int[k];
         int index = 0;
 
