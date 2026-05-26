@@ -9,7 +9,6 @@ class Solution {
         List<Integer>[] bucket = new List[nums.length + 1];
         for (int key : map.keySet()) {
             int freq = map.get(key);
-
             if (bucket[freq] == null) {
                 bucket[freq] = new ArrayList<>();
             }
