@@ -11,7 +11,6 @@ class Solution {
             if (bucket[freq] == null) {
                 bucket[freq] = new ArrayList<>();
             }
-
             bucket[freq].add(key);
         }
 
