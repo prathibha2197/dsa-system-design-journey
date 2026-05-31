@@ -5,7 +5,6 @@ class Solution {
         for (int num : nums) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
         List<Integer>[] bucket = new List[nums.length + 1];
         for (int key : map.keySet()) {
             int freq = map.get(key);
