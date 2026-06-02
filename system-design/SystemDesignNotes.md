@@ -1,6 +1,5 @@
 # System Design 
 ---
-
 ##  Load Balancer
 
 1. Problem: If 1M users access a single server, it may crash.
