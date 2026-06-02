@@ -241,7 +241,6 @@ Use cases:
 - ❌ No backpressure handling
 
 ### Real World Example (Flipkart)
-
 Order placed →
 → order_created event goes to queue
 → Email service consumes → sends email
